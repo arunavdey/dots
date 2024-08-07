@@ -1,0 +1,146 @@
+font pango: JetBrainsMono Nerd Font 6
+
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id nm-applet
+exec xinput set-prop "MSFT0001:00 06CB:7F28 Touchpad" "libinput Tapping Enabled" 1 &
+exec xinput set-prop "MSFT0001:00 06CB:7F28 Touchpad" "libinput Natural Scrolling Enabled" 1 &
+# exec_always redshift -l 12.9634:77.5855 -t 5000K:3000K -P -m randr &
+exec_always setxkbmap -option ctrl:nocaps &
+exec_always --no-startup-id dunst &
+exec_always --no-startup-id picom &
+exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpapers/gruvbox-3.png &
+
+
+# set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+set $up k
+set $down j
+set $left h
+set $right l
+
+floating_modifier Mod4
+tiling_drag modifier titlebar
+bindsym Mod4+Return exec wezterm
+bindsym Mod4+Shift+q kill
+bindsym Mod4+space exec --no-startup-id dmenu_run
+bindsym Mod4+Shift+x exec systemctl suspend
+
+bindsym Mod4+$left focus left
+bindsym Mod4+$down focus down
+bindsym Mod4+$up focus up
+bindsym Mod4+$right focus right
+
+bindsym Mod4+Left focus left
+bindsym Mod4+Down focus down
+bindsym Mod4+Up focus up
+bindsym Mod4+Right focus right
+
+bindsym Mod4+Shift+$left move left
+bindsym Mod4+Shift+$down move down
+bindsym Mod4+Shift+$up move up
+bindsym Mod4+Shift+$right move right
+
+bindsym Mod4+Shift+Left move left
+bindsym Mod4+Shift+Down move down
+bindsym Mod4+Shift+Up move up
+bindsym Mod4+Shift+Right move right
+
+bindsym Mod4+y split h
+bindsym Mod4+u split v
+
+bindsym Mod4+f fullscreen toggle
+
+bindsym Mod4+s layout stacking
+bindsym Mod4+w layout tabbed
+bindsym Mod4+e layout toggle split
+
+bindsym Mod4+Shift+space floating toggle
+
+bindsym Mod4+d focus mode_toggle
+
+bindsym Mod4+a focus parent
+
+bindsym Mod4+Shift+minus move scratchpad
+bindsym Mod4+minus scratchpad show
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym Mod4+1 workspace number $ws1
+bindsym Mod4+2 workspace number $ws2
+bindsym Mod4+3 workspace number $ws3
+bindsym Mod4+4 workspace number $ws4
+bindsym Mod4+5 workspace number $ws5
+bindsym Mod4+6 workspace number $ws6
+bindsym Mod4+7 workspace number $ws7
+bindsym Mod4+8 workspace number $ws8
+bindsym Mod4+9 workspace number $ws9
+bindsym Mod4+0 workspace number $ws10
+
+bindsym Mod4+Shift+1 move container to workspace number $ws1
+bindsym Mod4+Shift+2 move container to workspace number $ws2
+bindsym Mod4+Shift+3 move container to workspace number $ws3
+bindsym Mod4+Shift+4 move container to workspace number $ws4
+bindsym Mod4+Shift+5 move container to workspace number $ws5
+bindsym Mod4+Shift+6 move container to workspace number $ws6
+bindsym Mod4+Shift+7 move container to workspace number $ws7
+bindsym Mod4+Shift+8 move container to workspace number $ws8
+bindsym Mod4+Shift+9 move container to workspace number $ws9
+bindsym Mod4+Shift+0 move container to workspace number $ws10
+
+bindsym Mod4+Shift+c reload
+bindsym Mod4+Shift+r restart
+
+mode "[l]ogout [r]eboot [s]hutdown"{
+  bindsym l exec i3-msg exit
+  bindsym r exec systemctl reboot
+  bindsym s exec systemctl poweroff
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+  bindsym $mod+Shift+e mode "default"
+}
+
+bindsym Mod4+Shift+e mode "[l]ogout [r]eboot [s]hutdown" 
+
+mode "resize" {
+  bindsym $left       resize shrink width 10 px or 10 ppt
+  bindsym $down       resize grow height 10 px or 10 ppt
+  bindsym $up         resize shrink height 10 px or 10 ppt
+  bindsym $right      resize grow width 10 px or 10 ppt
+
+  bindsym Left        resize shrink width 10 px or 10 ppt
+  bindsym Down        resize grow height 10 px or 10 ppt
+  bindsym Up          resize shrink height 10 px or 10 ppt
+  bindsym Right       resize grow width 10 px or 10 ppt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym Mod4+r mode "default"
+}
+bindsym Mod4+r mode "resize"
+
+bar {
+  status_command i3status
+}
+
+gaps inner 8px
+
+exec i3-config-wizard

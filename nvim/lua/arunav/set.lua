@@ -5,7 +5,7 @@ vim.g.termguicolors = true
 
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
-vim.opt.textwidth = 80
+-- vim.opt.textwidth = 80
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.clipboard = "unnamed"

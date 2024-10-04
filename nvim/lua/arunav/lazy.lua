@@ -14,6 +14,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
+        "xiyaowong/transparent.nvim",
+        config = function ()
+           require("transparent").setup()
+        end
+    },
+    {
         "nvim-treesitter/nvim-treesitter",
         config = function()
             require("nvim-treesitter.configs").setup({
@@ -26,9 +32,10 @@ require("lazy").setup({
     {
         -- "catppuccin/nvim",
         -- "rebelot/kanagawa.nvim",
-        "ellisonleao/gruvbox.nvim",
+        "sainnhe/sonokai",
+        -- "ellisonleao/gruvbox.nvim",
         config = function()
-            vim.cmd.colorscheme("gruvbox")
+            vim.cmd.colorscheme("sonokai")
         end
     },
     { "tpope/vim-commentary" },

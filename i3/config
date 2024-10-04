@@ -1,18 +1,18 @@
-font pango: JetBrainsMono Nerd Font 6
+font pango: JetBrainsMono Nerd Font 12
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id nm-applet
-exec xinput set-prop "MSFT0001:00 06CB:7F28 Touchpad" "libinput Tapping Enabled" 1 &
-exec xinput set-prop "MSFT0001:00 06CB:7F28 Touchpad" "libinput Natural Scrolling Enabled" 1 &
-exec_always redshift -l 12.9634:77.5855 -t 5000K:3000K -P -m randr &
+exec_always xinput set-prop 15 "libinput Tapping Enabled" 1 &
+exec_always xinput set-prop 15 "libinput Natural Scrolling Enabled" 1 &
+# exec_always redshift -l 12.9634:77.5855 -t 5000K:3000K -P -m randr &
 exec_always setxkbmap -option ctrl:nocaps &
 exec_always --no-startup-id dunst &
 exec_always --no-startup-id picom &
-exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpapers/gruvbox-3.png &
+exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpapers/starry-wave.jpg &
 
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec brightnessctl s +10
+bindsym XF86MonBrightnessDown exec brightnessctl s 10-
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -20,6 +20,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+bindsym Print exec scrot
 
 set $up k
 set $down j
@@ -30,7 +31,7 @@ floating_modifier Mod4
 tiling_drag modifier titlebar
 bindsym Mod4+Return exec wezterm
 bindsym Mod4+Shift+q kill
-bindsym Mod4+space exec --no-startup-id dmenu_run
+bindsym Mod4+space exec --no-startup-id dmenu_run -fn "JetBrainsMono Nerd Font Mono"
 
 bindsym Mod4+$left focus left
 bindsym Mod4+$down focus down
@@ -110,7 +111,7 @@ mode "[l]logout [r]reboot [s]shutdown [x]suspend"{
   bindsym l exec i3-msg exit
   bindsym r exec systemctl reboot
   bindsym s exec systemctl poweroff
-  bindsym x exec systemctl suspend
+  bindsym x exec i3-msg mode "default" && systemctl suspend
   bindsym Escape mode "default"
   bindsym Return mode "default"
   bindsym $mod+Shift+e mode "default"

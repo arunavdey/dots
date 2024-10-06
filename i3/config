@@ -1,26 +1,26 @@
 font pango: JetBrainsMono Nerd Font 12
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id nm-applet
-exec_always xinput set-prop 15 "libinput Tapping Enabled" 1 &
-exec_always xinput set-prop 15 "libinput Natural Scrolling Enabled" 1 &
-# exec_always redshift -l 12.9634:77.5855 -t 5000K:3000K -P -m randr &
-exec_always setxkbmap -option ctrl:nocaps &
-exec_always --no-startup-id dunst &
-exec_always --no-startup-id picom &
-exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpapers/starry-wave.jpg &
+exec --no-startup-id flameshot
+exec --no-startup-id dunst &
+exec --no-startup-id picom &
+exec --no-startup-id xset -b
+exec --no-startup-id xinput set-prop 15 "libinput Tapping Enabled" 1 &
+exec --no-startup-id xinput set-prop 15 "libinput Natural Scrolling Enabled" 1 &
+exec --no-startup-id setxkbmap -option ctrl:nocaps &
 
-bindsym XF86MonBrightnessUp exec brightnessctl s +10
-bindsym XF86MonBrightnessDown exec brightnessctl s 10-
+exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpapers/beach.jpg &
+
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-bindsym Print exec scrot
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 set $up k
 set $down j
@@ -29,9 +29,9 @@ set $right l
 
 floating_modifier Mod4
 tiling_drag modifier titlebar
-bindsym Mod4+Return exec wezterm
 bindsym Mod4+Shift+q kill
-bindsym Mod4+space exec --no-startup-id dmenu_run -fn "JetBrainsMono Nerd Font Mono"
+bindsym Mod4+Return exec --no-startup-id kitty
+bindsym Mod4+space exec --no-startup-id dmenu_run -fn "JetBrainsMono Nerd Font Mono" -b
 
 bindsym Mod4+$left focus left
 bindsym Mod4+$down focus down
@@ -107,17 +107,17 @@ bindsym Mod4+Shift+0 move container to workspace number $ws10
 bindsym Mod4+Shift+c reload
 bindsym Mod4+Shift+r restart
 
-mode "[l]logout [r]reboot [s]shutdown [x]suspend"{
-  bindsym l exec i3-msg exit
-  bindsym r exec systemctl reboot
-  bindsym s exec systemctl poweroff
-  bindsym x exec i3-msg mode "default" && systemctl suspend
+mode "power" {
+  bindsym l exec --no-startup-id i3-msg exit
+  bindsym r exec --no-startup-id systemctl reboot
+  bindsym s exec --no-startup-id systemctl poweroff
+  bindsym x exec --no-startup-id i3-msg mode "default" && systemctl suspend
+  bindsym h exec --no-startup-id i3-msg mode "default" && systemctl hibernate
   bindsym Escape mode "default"
-  bindsym Return mode "default"
-  bindsym $mod+Shift+e mode "default"
+  bindsym Mod4+Shift+e mode "default"
 }
 
-bindsym Mod4+Shift+e mode "[l]logout [r]reboot [s]shutdown [x]suspend" 
+bindsym Mod4+Shift+e mode "power"
 
 mode "resize" {
   bindsym $left       resize shrink width 10 px or 10 ppt
@@ -137,7 +137,9 @@ mode "resize" {
 bindsym Mod4+r mode "resize"
 
 bar {
-  status_command i3status
+    # status_command i3status
+    status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
 }
 
-gaps inner 8px
+gaps outer 5px
+gaps inner 10px

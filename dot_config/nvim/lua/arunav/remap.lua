@@ -1,0 +1,25 @@
+local vim = vim
+local telescope_builtin = require("telescope.builtin")
+local conform = require("conform")
+
+vim.keymap.set("n", "-", vim.cmd.Oil)
+
+vim.keymap.set("n", "<Space>u", vim.cmd.UndotreeToggle)
+vim.keymap.set("n", "<Space>fo", conform.format)
+vim.keymap.set("n", "<Space>cc", vim.cmd.CopilotChatToggle)
+vim.keymap.set("n", "<Space>cr", vim.cmd.CopilotChatReview)
+vim.keymap.set("n", "<Space>cf", vim.cmd.CopilotChatFix)
+vim.keymap.set("n", "<Space>co", vim.cmd.CopilotChatOptimize)
+vim.keymap.set("n", "<Space>fb", telescope_builtin.buffers)
+vim.keymap.set("n", "<Space>fp", telescope_builtin.fd)
+vim.keymap.set("n", "<Space>ff", telescope_builtin.live_grep)
+vim.keymap.set("n", "<Space>fr", telescope_builtin.lsp_references)
+vim.keymap.set("n", "<Space>fd", telescope_builtin.lsp_definitions)
+vim.keymap.set("n", "<Space>re", telescope_builtin.registers)
+vim.keymap.set("n", "<Space>dd", telescope_builtin.diagnostics)
+
+vim.keymap.set("v", "<Space>fo", conform.format)
+vim.keymap.set("v", "<Space>cc", vim.cmd.CopilotChatToggle)
+vim.keymap.set("v", "<Space>cr", vim.cmd.CopilotChatReview)
+vim.keymap.set("v", "<Space>cf", vim.cmd.CopilotChatFix)
+vim.keymap.set("v", "<Space>co", vim.cmd.CopilotChatOptimize)

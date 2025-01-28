@@ -5,6 +5,7 @@ vim.g.termguicolors = true
 vim.opt.list = true
 vim.opt.listchars = { space = '·', tab = '▏ ' }
 
+vim.opt.signcolumn = "yes"
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
 vim.opt.autoindent = true

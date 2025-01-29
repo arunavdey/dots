@@ -12,7 +12,6 @@ vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.clipboard = "unnamed"
 vim.opt.cursorline = true
-vim.opt.cursorlineopt = "number"
 vim.opt.hlsearch = true
 vim.opt.number = true
 vim.opt.relativenumber = true

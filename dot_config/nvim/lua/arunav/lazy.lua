@@ -52,7 +52,7 @@ require("lazy").setup({
     end,
   },
   {
-    "morhetz/gruvbox",
+    "rebelot/kanagawa.nvim",
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter",
@@ -66,7 +66,7 @@ require("lazy").setup({
       },
     },
     config = function()
-      vim.cmd.colorscheme("gruvbox")
+      vim.cmd.colorscheme("kanagawa-dragon")
     end,
   },
   {
@@ -81,6 +81,13 @@ require("lazy").setup({
       telescope.load_extension("fzf")
       telescope.setup()
     end,
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function ()
+      -- require("lualine").setup()
+    end
   },
   { 'neovim/nvim-lspconfig' },
   { 'hrsh7th/cmp-nvim-lsp' },

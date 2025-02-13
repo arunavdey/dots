@@ -1,9 +1,9 @@
 {
-  "theme": "Kanagawa Dragon",
+  "theme": "Andromeda",
   "assistant": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-3-5-sonnet"
+      "model": "o3-mini"
     },
     "version": "2"
   },

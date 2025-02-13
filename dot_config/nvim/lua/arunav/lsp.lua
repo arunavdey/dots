@@ -29,6 +29,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 lspconfig.lua_ls.setup({})
+lspconfig.ts_ls.setup({})
+lspconfig.tailwindcss.setup({})
 
 -- Autcompletion setup
 local cmp = require('cmp')

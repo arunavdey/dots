@@ -7,10 +7,10 @@ set $down j
 set $up k
 set $right l
 set $term ghostty
-set $menu "wmenu-run -b -f 'JetBrainsMono Nerd Font Mono 12'"
-set $nag exec swaynagmode
+set $menu "/home/arunav/.config/rofi/launchers/type-1/launcher.sh"
+set $powermenu "/home/arunav/.config/rofi/powermenu/type-1/powermenu.sh"
 
-font pango:JetBrainsMono Nerd Font Mono 10
+font pango:JetBrainsMono Nerd Font Mono 12
 
 ### Output setup
 output eDP-1 {
@@ -30,6 +30,8 @@ input "type:keyboard" {
   xkb_options ctrl:nocaps
 }
 
+exec swaync
+
 ### Idling setup
 # exec swayidle -w timeout 300 'swaylock -f -c 000000' timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' before-sleep 'swaylock -f -c 000000'
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -43,7 +45,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+space exec $menu
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+e exec $powermenu
 
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
@@ -117,8 +119,6 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 ### Utilities
-bindsym --locked $mod+Shift+m output "eDP-2" toggle
-bindsym --locked $mod+Shift+n output "eDP-2" enable
 bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
 bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked XF86AudioStop exec playerctl stop
@@ -130,12 +130,11 @@ bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ t
 bindsym --locked XF86MonBrightnessDown exec light -U 5
 bindsym --locked XF86MonBrightnessUp exec light -A 5
 bindsym Print exec grim
+bindsym $mod+Shift+n exec swaync-client -t -sw
 
 ### Status bar
 bar {
   status_command i3status
 }
-
-gaps inner 10
 
 include /etc/sway/config.d/*

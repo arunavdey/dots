@@ -1,6 +1,7 @@
--- Server setup
-local lspconfig = require('lspconfig')
+local lspconfig = require("lspconfig")
 
+
+-- Server setup
 local lspconfig_defaults = require('lspconfig').util.default_config
 lspconfig_defaults.capabilities = vim.tbl_deep_extend(
   'force',
@@ -28,9 +29,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-lspconfig.lua_ls.setup({})
-lspconfig.ts_ls.setup({})
-lspconfig.tailwindcss.setup({})
+lspconfig.lua_ls.setup{}
+lspconfig.ts_ls.setup{}
+lspconfig.gopls.setup{}
+lspconfig.tailwindcss.setup{}
+lspconfig.templ.setup{}
+lspconfig.clangd.setup{}
+lspconfig.basedpyright.setup{}
+lspconfig.rust_analyzer.setup{}
 
 -- Autcompletion setup
 local cmp = require('cmp')

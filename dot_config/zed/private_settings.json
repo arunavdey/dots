@@ -1,18 +1,15 @@
 {
-  "theme": "Andromeda",
   "assistant": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "o3-mini"
+      "model": "claude-3-7-sonnet"
     },
     "version": "2"
   },
+  "theme": "Gruvbox Dark",
   "vim_mode": true,
   "confirm_quit": true,
   "wrap_guides": [80],
   "soft_wrap": "bounded",
-  "relative_line_numbers": true,
-  "git_panel": {
-    "button": true
-  }
+  "relative_line_numbers": true
 }

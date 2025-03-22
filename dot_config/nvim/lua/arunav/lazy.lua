@@ -13,17 +13,15 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { "tpope/vim-commentary" },
-  { "tpope/vim-surround" },
-  { "tpope/vim-fugitive" },
-  { "tpope/vim-rhubarb" },
-  { "mbbill/undotree" },
   {
     "stevearc/oil.nvim",
     config = function()
       require("oil").setup()
     end,
   },
+  { "tpope/vim-commentary" },
+  { "tpope/vim-surround" },
+  { "tpope/vim-fugitive" },
   {
     "windwp/nvim-ts-autotag",
     config = function()
@@ -45,28 +43,13 @@ require("lazy").setup({
     end,
   },
   {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    build = "make tiktoken",
+    "nvim-treesitter/nvim-treesitter",
     config = function()
-      require("CopilotChat").setup()
-    end,
-  },
-  {
-    "rebelot/kanagawa.nvim",
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter",
-        config = function()
-          require("nvim-treesitter.configs").setup({
-            highlight = {
-              enable = true,
-            },
-          })
-        end,
-      },
-    },
-    config = function()
-      vim.cmd.colorscheme("kanagawa-wave")
+      require("nvim-treesitter.configs").setup({
+        highlight = {
+          enable = true,
+        },
+      })
     end,
   },
   {
@@ -83,13 +66,19 @@ require("lazy").setup({
     end,
   },
   {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function ()
-      -- require("lualine").setup()
+    "folke/trouble.nvim",
+    cmd = "Trouble",
+    config = function()
+      require("trouble").setup()
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
     end
   },
   { 'neovim/nvim-lspconfig' },
   { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/nvim-cmp' },
+  { 'hrsh7th/nvim-cmp' }
 })

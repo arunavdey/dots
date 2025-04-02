@@ -1,5 +1,13 @@
-local lspconfig = require("lspconfig")
+local vim = vim
 
+-- Server manager setup
+require("mason").setup()
+require("mason-lspconfig").setup()
+require("mason-lspconfig").setup_handlers {
+  function(server_name)
+    require("lspconfig")[server_name].setup {}
+  end
+}
 
 -- Server setup
 local lspconfig_defaults = require('lspconfig').util.default_config
@@ -28,15 +36,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
   end,
 })
-
-lspconfig.lua_ls.setup{}
-lspconfig.ts_ls.setup{}
-lspconfig.gopls.setup{}
-lspconfig.tailwindcss.setup{}
-lspconfig.templ.setup{}
-lspconfig.clangd.setup{}
-lspconfig.basedpyright.setup{}
-lspconfig.rust_analyzer.setup{}
 
 -- Autcompletion setup
 local cmp = require('cmp')

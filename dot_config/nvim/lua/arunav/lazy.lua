@@ -13,6 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  { "rebelot/kanagawa.nvim" },
   {
     "stevearc/oil.nvim",
     config = function()
@@ -72,13 +73,18 @@ require("lazy").setup({
       require("trouble").setup()
     end,
   },
-  {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end
-  },
+  { "williamboman/mason.nvim" },
+  { "williamboman/mason-lspconfig.nvim" },
   { 'neovim/nvim-lspconfig' },
   { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/nvim-cmp' }
+  { 'hrsh7th/nvim-cmp' },
+  {
+    'olimorris/codecompanion.nvim',
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = true
+  }
+
 })

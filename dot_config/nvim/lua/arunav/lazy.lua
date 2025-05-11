@@ -13,8 +13,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { "github/copilot.vim" },
+  {
+    "akinsho/bufferline.nvim",
+    config = function()
+      require("bufferline").setup()
+    end
+  },
   { "rebelot/kanagawa.nvim" },
+  { "navarasu/onedark.nvim" },
   {
     "stevearc/oil.nvim",
     config = function()
@@ -24,18 +30,6 @@ require("lazy").setup({
   { "tpope/vim-commentary" },
   { "tpope/vim-surround" },
   { "tpope/vim-fugitive" },
-  {
-    "windwp/nvim-ts-autotag",
-    config = function()
-      require("nvim-ts-autotag").setup()
-    end,
-  },
-  {
-    "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup()
-    end,
-  },
   {
     "lewis6991/gitsigns.nvim",
     config = function()
@@ -74,18 +68,40 @@ require("lazy").setup({
       require("trouble").setup()
     end,
   },
-  { "williamboman/mason.nvim" },
-  { "williamboman/mason-lspconfig.nvim" },
-  { 'neovim/nvim-lspconfig' },
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/nvim-cmp' },
   {
-    'olimorris/codecompanion.nvim',
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = true
-  }
-
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
+  {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup()
+    end,
+  },
+  {
+    'saghen/blink.cmp',
+    dependencies = { 'rafamadriz/friendly-snippets' },
+    version = '1.*',
+    opts = {
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
+      fuzzy = { implementation = "lua" }
+    }
+  },
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup()
+    end
+  },
+  { 'neovim/nvim-lspconfig' }
 })

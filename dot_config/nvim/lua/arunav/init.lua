@@ -1,5 +1,4 @@
 require("arunav.lazy")
 require("arunav.remap")
 require("arunav.lsp")
-require("arunav.ai")
 require("arunav.set")

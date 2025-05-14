@@ -14,6 +14,32 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
+    "nvim-lualine/lualine.nvim",
+    config = function()
+      require("lualine").setup()
+    end
+  },
+  {
+    "olimorris/codecompanion.nvim",
+    config = function()
+      require("codecompanion").setup({
+        require("codecompanion").setup({
+          adapters = {
+            copilot = function()
+              return require("codecompanion.adapters").extend("copilot", {
+                schema = {
+                  model = {
+                    default = "claude-3.7-sonnet",
+                  },
+                },
+              })
+            end,
+          },
+        }),
+      })
+    end
+  },
+  {
     "akinsho/bufferline.nvim",
     config = function()
       require("bufferline").setup()

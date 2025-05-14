@@ -1,1 +1,1 @@
-require("arunav");
+require("config");

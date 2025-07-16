@@ -1,14 +1,3 @@
--- GENERAL SETTINGS START
-vim.g.mapleader = " "
-vim.g.termguicolors = true
-vim.g.background = "dark"
-vim.opt.relativenumber = true
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 0
-vim.cmd.colorscheme("habamax")
--- GENERAL SETTINGS END
-
 -- PLUGINS START
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -25,14 +14,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "stevearc/oil.nvim",
-    config = function()
-      require("oil").setup()
-      vim.keymap.set("n", "-", vim.cmd.Oil)
-    end,
+    "zenbones-theme/zenbones.nvim",
+    dependencies = "rktjmp/lush.nvim"
   },
+  { "neovim/nvim-lspconfig" },
   { "tpope/vim-commentary" },
-  { "tpope/vim-surround" },
   { "tpope/vim-fugitive" },
   {
     "lewis6991/gitsigns.nvim",
@@ -40,6 +26,13 @@ require("lazy").setup({
       require("gitsigns").setup({
         numhl = true,
       })
+    end,
+  },
+  {
+    "stevearc/oil.nvim",
+    config = function()
+      require("oil").setup()
+      vim.keymap.set("n", "-", vim.cmd.Oil)
     end,
   },
   {
@@ -72,18 +65,6 @@ require("lazy").setup({
     end,
   },
   {
-    "windwp/nvim-ts-autotag",
-    config = function()
-      require("nvim-ts-autotag").setup()
-    end,
-  },
-  {
-    "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup()
-    end,
-  },
-  {
     'saghen/blink.cmp',
     dependencies = { 'rafamadriz/friendly-snippets' },
     version = '1.*',
@@ -93,29 +74,43 @@ require("lazy").setup({
       },
       fuzzy = { implementation = "lua" }
     }
-  },
-  {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup()
-    end
-  },
-  { 'neovim/nvim-lspconfig' }
+  }
 })
 -- PLUGINS END
 
--- MISC. BINDS START
+-- BINDS START
 local nv_mode = { "n", "v" }
-vim.keymap.set(nv_mode, "do", "<cmd>lua vim.diagnostic.open_float()<cr>")
-vim.keymap.set(nv_mode, "d]", "<cmd>lua vim.diagnostic.goto_next()<cr>")
-vim.keymap.set(nv_mode, "d[", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-vim.keymap.set(nv_mode, "gq", "<cmd>lua vim.lsp.buf.format()<cr>")
-vim.keymap.set(nv_mode, "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
-vim.keymap.set(nv_mode, "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
--- MISC. BINDS END
+vim.keymap.set(nv_mode, "do", vim.diagnostic.open_float)
+vim.keymap.set(nv_mode, "d]", vim.diagnostic.goto_next)
+vim.keymap.set(nv_mode, "d[", vim.diagnostic.goto_prev)
+vim.keymap.set(nv_mode, "gq", vim.lsp.buf.format)
+vim.keymap.set(nv_mode, "gr", vim.lsp.buf.references)
+vim.keymap.set(nv_mode, "gd", vim.lsp.buf.definition)
+-- BINDS END
+
+-- LSP START
+vim.lsp.enable("pyright")
+vim.lsp.config("pyright", {})
+vim.lsp.enable("rust-analyzer")
+vim.lsp.config("rust-analyzer", {})
+vim.lsp.enable("clangd")
+vim.lsp.config("clangd", {})
+vim.lsp.enable("lua_ls")
+vim.lsp.config("lua_ls", {})
+vim.lsp.enable("ts_ls")
+vim.lsp.config("ts_ls", {})
+vim.lsp.enable("gopls")
+vim.lsp.config("gopls", {})
+-- LSP END
+
+-- GENERAL SETTINGS START
+vim.g.mapleader = " "
+vim.g.termguicolors = true
+vim.g.background = "dark"
+vim.opt.relativenumber = true
+vim.opt.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 0
+vim.cmd.colorscheme("zenburned")
+-- GENERAL SETTINGS END
+

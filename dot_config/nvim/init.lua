@@ -24,12 +24,18 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "zenbones-theme/zenbones.nvim",
-    dependencies = "rktjmp/lush.nvim",
+    "vague2k/vague.nvim",
     config = function()
-      vim.cmd.colorscheme("kanagawabones")
-    end
+      vim.cmd("colorscheme vague")
+    end,
   },
+  -- {
+  --   "zenbones-theme/zenbones.nvim",
+  --   dependencies = "rktjmp/lush.nvim",
+  --   config = function()
+  --     vim.cmd.colorscheme("kanagawabones")
+  --   end
+  -- },
   { "neovim/nvim-lspconfig" },
   { "tpope/vim-commentary" },
   { "tpope/vim-fugitive" },
@@ -78,50 +84,34 @@ require("lazy").setup({
     end,
   },
   {
-    'saghen/blink.cmp',
-    dependencies = { 'rafamadriz/friendly-snippets' },
-    version = '1.*',
+    "saghen/blink.cmp",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    version = "1.*",
     opts = {
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        default = { "lsp", "path", "snippets", "buffer" },
       },
-      fuzzy = { implementation = "prefer_rust_with_warning" }
-    }
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+    },
   },
   {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
+    "mason-org/mason-lspconfig.nvim",
     config = function()
-      local harpoon = require("harpoon")
-      harpoon.setup()
-      local conf = require("telescope.config").values
-      local function toggle_telescope(harpoon_files)
-        local file_paths = {}
-        for _, item in ipairs(harpoon_files.items) do
-          table.insert(file_paths, item.value)
-        end
-
-        require("telescope.pickers").new({}, {
-          prompt_title = "Harpoon",
-          finder = require("telescope.finders").new_table({
-            results = file_paths,
-          }),
-          previewer = conf.file_previewer({}),
-          sorter = conf.generic_sorter({}),
-        }):find()
-      end
-
-      vim.keymap.set("n", "<leader>e", function() toggle_telescope(harpoon:list()) end)
-      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-      vim.keymap.set("n", "<leader>r", function() harpoon:list():remove() end)
-      vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
-      vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
-      vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
-      vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
-      vim.keymap.set("n", "<leader>]", function() harpoon:list():next() end)
-      vim.keymap.set("n", "<leader>[", function() harpoon:list():prev() end)
-    end
-  }
+      require("mason-lspconfig").setup({
+        handlers = {
+          function(server_name)
+            require("lspconfig")[server_name].setup()
+          end
+        },
+      })
+    end,
+  },
+  {
+    "mason-org/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+  },
 })
 -- PLUGINS END
 
@@ -134,25 +124,5 @@ vim.keymap.set(nv_mode, "gq", vim.lsp.buf.format)
 vim.keymap.set(nv_mode, "gr", vim.lsp.buf.references)
 vim.keymap.set(nv_mode, "gd", vim.lsp.buf.definition)
 vim.keymap.set(nv_mode, "<F2>", vim.lsp.buf.rename)
+vim.keymap.set(nv_mode, "<leader>-", "<Cmd>b#<CR>")
 -- BINDS END
-
--- LSP START
-vim.lsp.enable("pyright")
-vim.lsp.config("pyright", {})
-vim.lsp.enable("rust-analyzer")
-vim.lsp.config("rust-analyzer", {})
-vim.lsp.enable("clangd")
-vim.lsp.config("clangd", {})
-vim.lsp.enable("lua_ls")
-vim.lsp.config("lua_ls", {})
-vim.lsp.enable("ts_ls")
-vim.lsp.config("ts_ls", {})
-vim.lsp.enable("gopls")
-vim.lsp.config("gopls", {})
-vim.lsp.enable("marksman")
-vim.lsp.config("marksman", {})
-vim.lsp.enable("prettier")
-vim.lsp.config("prettier", {})
-vim.lsp.enable("black")
-vim.lsp.config("black", {})
--- LSP END

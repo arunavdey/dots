@@ -23,19 +23,19 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  {
-    "vague2k/vague.nvim",
-    config = function()
-      vim.cmd("colorscheme vague")
-    end,
-  },
   -- {
-  --   "zenbones-theme/zenbones.nvim",
-  --   dependencies = "rktjmp/lush.nvim",
+  --   "vague2k/vague.nvim",
   --   config = function()
-  --     vim.cmd.colorscheme("kanagawabones")
-  --   end
+  --     vim.cmd("colorscheme vague")
+  --   end,
   -- },
+  {
+    "zenbones-theme/zenbones.nvim",
+    dependencies = "rktjmp/lush.nvim",
+    config = function()
+      vim.cmd.colorscheme("kanagawabones")
+    end
+  },
   { "neovim/nvim-lspconfig" },
   { "tpope/vim-commentary" },
   { "tpope/vim-fugitive" },

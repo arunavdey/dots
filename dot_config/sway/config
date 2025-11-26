@@ -1,37 +1,47 @@
 # Read `man 5 sway` for a complete reference.
 
-exec dunst
-
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
-set $term ghostty
-# set $menu wmenu-run -b -f "JetBrainsMono Nerd Font Mono 10"
+set $output HDMI-A-1
+set $touchpad "type:touchpad"
+set $keyboard "type:keyboard"
+set $mode_resize "resize"
+
+set $term kitty
 set $menu wofi --show drun
 set $powermenu wlogout
 set $emojimenu rofimoji
+set $wobpipe /tmp/wobpipe
+set $location 22.57:86.36
+set $date notify-send -t 5000 "$(date)"
+
+exec mako
+exec tail -f $wobpipe | wob
+exec swayosd-server
+# exec gammastep -l $location -t 6500:3500
 
 floating_modifier $mod normal
 font pango:JetBrainsMono Nerd Font Mono 10
 
-output HDMI-A-1 {
+output $output {
   resolution 1920x1080
   position 1920 0 
-  bg /home/arunav/Pictures/Wallpapers/creation_of_man.jpg fit
+  bg /home/arunav/Pictures/Wallpapers/cyber-fantasy.jpg fit
 }
 
-input "type:touchpad" {
+input $touchpad {
   tap enabled
   natural_scroll enabled
   middle_emulation enabled
   scroll_factor 0.40
 }
 
-input "type:keyboard" {
-  xkb_options ctrl:nocaps
-}
+# input $keyboard {
+  # xkb_options ctrl:nocaps
+# }
 
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
@@ -41,6 +51,7 @@ bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec $powermenu
 bindsym $mod+p exec grim ~/Pictures/Screenshots/$(date +%F_%T).png
 bindsym $mod+Shift+p exec grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +%F_%T).png
+bindsym $mod+t exec $date
 
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
@@ -90,7 +101,7 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-mode "resize" {
+mode $mode_resize {
   bindsym $left resize shrink width 20px
   bindsym $down resize grow height 20px
   bindsym $up resize shrink height 20px
@@ -98,18 +109,20 @@ mode "resize" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+bindsym $mod+r mode $mode_resize
 
-bindsym --locked XF86AudioPlay exec playerctl play-pause
-bindsym --locked XF86AudioStop exec playerctl stop
-bindsym --locked XF86AudioPrev exec playerctl previous
-bindsym --locked XF86AudioNext exec playerctl next
-bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1%
-bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1%
-bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioPlay exec swayosd-client --playerctl play-pause
+bindsym --locked XF86AudioStop exec swayosd-client --playerctl stop
+bindsym --locked XF86AudioPrev exec swayosd-client --playerctl previous
+bindsym --locked XF86AudioNext exec swayosd-client --playerctl next
+bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise
+bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower
+bindsym --locked XF86AudioMute exec swayosd-client --output-volume mute-toggle
+bindsym --locked XF86MonBrightnessUp exec swayosd-client --brightness raise
+bindsym --locked XF86MonBrightnessDown exec swayosd-client --brightness lower
 
-bar {
-  status_command i3status
-}
+# bar {
+#   status_command i3status
+# }
 
 gaps inner 10

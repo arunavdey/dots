@@ -2,9 +2,8 @@
 vim.g.mapleader = " "
 vim.g.termguicolors = true
 vim.g.background = "dark"
-vim.opt.number = true
 vim.opt.expandtab = true
-vim.opt.tabstop = 2
+vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
 -- GENERAL SETTINGS END
 
@@ -23,18 +22,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- {
-  --   "vague2k/vague.nvim",
-  --   config = function()
-  --     vim.cmd("colorscheme vague")
-  --   end,
-  -- },
   {
-    "zenbones-theme/zenbones.nvim",
-    dependencies = "rktjmp/lush.nvim",
+    "ellisonleao/gruvbox.nvim",
     config = function()
-      vim.cmd.colorscheme("kanagawabones")
-    end
+      vim.cmd("colorscheme gruvbox")
+    end,
   },
   { "neovim/nvim-lspconfig" },
   { "tpope/vim-commentary" },
